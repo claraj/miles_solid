@@ -20,10 +20,10 @@ class VehicleDB():
             raise MileageError(f'Error inserting: will not add duplicate vehicle with name {vehicle.name}')    # duplicate vehicle 
 
 
-    def increase_miles(self, vehicle, miles):
+    def increase_miles(self, vehicle, new_miles):
 
         with sqlite3.connect(db) as con:
-            cursor = con.execute('UPDATE MILES SET total_miles = total_miles + ? WHERE vehicle = ?', (vehicle.name, miles))
+            cursor = con.execute('UPDATE MILES SET total_miles = total_miles + ? WHERE vehicle = ?', (vehicle.name, new_miles))
             rows_mod = cursor.rowcount
         con.close()
         
@@ -33,7 +33,7 @@ class VehicleDB():
 
     def get_all(self):
         con = sqlite3.connect(db) 
-        vehicles_cursor = con.execute('SELECT * FROM MILES')
+        vehicles_cursor = con.execute('SELECT rowid, * FROM MILES')
         vehicles = [ Vehicle(*row) for row in vehicles_cursor.fetchall() ]
         con.close()
         return vehicles
