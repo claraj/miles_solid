@@ -12,8 +12,8 @@ from view_model import ViewModel
 
 def main():
 
-    # vehicle_db = SQLVehicleDB()
-    vehicle_db = APIVehicleDB()    # Replace the SQLVehicleDB with this to use the API - code will be happy
+    vehicle_db = SQLVehicleDB()
+    #vehicle_db = APIVehicleDB()    # Replace the SQLVehicleDB with this to use the API - code will be happy
 
     vehicle_view_model = ViewModel(vehicle_db)
 

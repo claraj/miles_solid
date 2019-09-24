@@ -1,3 +1,3 @@
 # Configuration settings for the sqlite database
 
-db = 'miles.db'
+db_path = 'miles.db'

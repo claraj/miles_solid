@@ -1,8 +1,12 @@
 import sqlite3 
-from .config import db  # .config means import from this directory 
+# from .config import db  # .config means import from this directory 
+from .config import db_path
 from exceptions.mileage_error import MileageError
 from database_abc import VehicleDB
 from model.model import Vehicle
+from utils.validation import ensure_positive_float
+
+db = db_path
 
 class SQLVehicleDB(VehicleDB):
 
@@ -12,9 +16,14 @@ class SQLVehicleDB(VehicleDB):
         
 
     def insert(self, vehicle):
+
+        miles = ensure_positive_float(vehicle.miles)
+        if miles is None:
+            raise MileageError('Miles must be a positive number')
+
         try:
             with sqlite3.connect(db) as con:
-                rows_mod = con.execute('INSERT INTO MILES VALUES (?, ?)', (vehicle.name, vehicle.miles))
+                rows_mod = con.execute('INSERT INTO MILES VALUES (?, ?)', (vehicle.name, miles))
             con.close()
             return rows_mod
         except sqlite3.IntegrityError as ie:
@@ -22,8 +31,13 @@ class SQLVehicleDB(VehicleDB):
 
 
     def increase_miles(self, vehicle, new_miles):
+
+        miles = ensure_positive_float(new_miles)
+        if miles is None:
+            raise MileageError('Miles must be a positive number')
+
         with sqlite3.connect(db) as con:
-            cursor = con.execute('UPDATE MILES SET total_miles = total_miles + ? WHERE vehicle = ?', (new_miles, vehicle.name))
+            cursor = con.execute('UPDATE MILES SET total_miles = total_miles + ? WHERE vehicle = ?', (miles, vehicle.name))
             rows_mod = cursor.rowcount
         con.close()
         
