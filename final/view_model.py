@@ -2,19 +2,17 @@
 
 class ViewModel:
 
-    def __init__(self, repo):
-        # self.view = view
-        self.repository = repo
-
+    def __init__(self, db):
+        self.db = db
 
     def insert(self, vehicle):
-        self.repository.insert(vehicle)
+        self.db.insert(vehicle)
 
-    def add_miles(self, vehicle, miles):
-        self.repository.update(vehicle, miles)
+    def increase_miles(self, vehicle, miles):
+        self.db.increase_miles(vehicle, miles)
 
-    def get_all_data(self):
-        return self.repository.get_all_data()
+    def get_all(self):
+        return self.db.get_all()
 
     
 

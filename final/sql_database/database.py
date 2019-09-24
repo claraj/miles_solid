@@ -1,9 +1,10 @@
 import sqlite3 
-from .config import db  # Import from this directory 
+from .config import db  # .config means import from this directory 
 from exceptions.mileage_error import MileageError
+from database_abc import VehicleDB
 from model.model import Vehicle
 
-class VehicleDB():
+class SQLVehicleDB(VehicleDB):
 
     def __init__(self):
         with sqlite3.connect(db) as con:
@@ -21,9 +22,8 @@ class VehicleDB():
 
 
     def increase_miles(self, vehicle, new_miles):
-
         with sqlite3.connect(db) as con:
-            cursor = con.execute('UPDATE MILES SET total_miles = total_miles + ? WHERE vehicle = ?', (vehicle.name, new_miles))
+            cursor = con.execute('UPDATE MILES SET total_miles = total_miles + ? WHERE vehicle = ?', (new_miles, vehicle.name))
             rows_mod = cursor.rowcount
         con.close()
         
@@ -33,7 +33,7 @@ class VehicleDB():
 
     def get_all(self):
         con = sqlite3.connect(db) 
-        vehicles_cursor = con.execute('SELECT rowid, * FROM MILES')
+        vehicles_cursor = con.execute('SELECT * FROM MILES')
         vehicles = [ Vehicle(*row) for row in vehicles_cursor.fetchall() ]
         con.close()
         return vehicles

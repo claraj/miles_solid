@@ -1,4 +1,5 @@
-"""User interface considerations only """
+"""User interface considerations only. Will pass all database queries to the ViewModel """
+
 from .view_util import input_positive_float, show_vehicle_list, header
 from model.model import Vehicle
 from exceptions.mileage_error import MileageError
@@ -8,6 +9,7 @@ class View:
 
     def __init__(self, view_model):
         self.view_model = view_model
+
 
     def get_new_vehicles(self):
 
@@ -38,7 +40,7 @@ class View:
             miles = input_positive_float(f'Enter new miles driven for {name}: ')
             vehicle = Vehicle(name)
             try:
-                self.view_model.add_miles(vehicle, miles)
+                self.view_model.increase_miles(vehicle, miles)
             except MileageError as e:
                 print(str(e))
 
@@ -47,7 +49,7 @@ class View:
 
         header('All vehicles in the database')
 
-        all_vehicles = self.view_model.get_all_data()
+        all_vehicles = self.view_model.get_all()
         show_vehicle_list(all_vehicles)
 
 

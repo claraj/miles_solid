@@ -1,12 +1,11 @@
-import sqlite3 
-
-from model import *
+"""
+Model objects, represent entities in the program, and data in the data store. 
+"""
 
 class Vehicle():
-    def __init__(self, name, miles=0, id=None):
+    def __init__(self, name, miles=0):
         self.name = name 
         self.miles = miles
-        self.id = id
 
 
     def __str__(self):
@@ -17,6 +16,8 @@ class Vehicle():
         return f'Name: {self.name}, Miles: {self.miles}'
 
 
+
+# Can make Car and Van and Motorcycle subclasses and everything still works 
 class Car(Vehicle):
     pass
 
