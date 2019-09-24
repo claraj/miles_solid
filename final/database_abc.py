@@ -14,3 +14,6 @@ class VehicleDB(abc.ABC):
     @abc.abstractmethod
     def get_all(self):
         pass
+
+
+    

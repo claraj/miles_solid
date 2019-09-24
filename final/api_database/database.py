@@ -8,7 +8,6 @@ from model.model import Vehicle
 Implements the same interface as the sql_database version of VehicleDB
 """
 
-
 class APIVehicleDB(VehicleDB):
         
     def insert(self, vehicle):

@@ -38,7 +38,15 @@ class View:
                 break
 
             miles = input_positive_float(f'Enter new miles driven for {name}: ')
+            
             vehicle = Vehicle(name)
+            
+            # Can substitute a Van for a Vehicle - code all still works, 
+            # although DB would need to be updated to store the extra field. 
+            
+            # seats = int(input('Enter seats for van: '))
+            # vehicle = Van(name, seats)
+            
             try:
                 self.view_model.increase_miles(vehicle, miles)
             except MileageError as e:

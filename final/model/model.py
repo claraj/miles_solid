@@ -18,12 +18,18 @@ class Vehicle():
 
 
 # Can make Car and Van and Motorcycle subclasses and everything still works 
-class Car(Vehicle):
-    pass
+
+class Van(Vehicle):
+    def __init__(self, name, seats, miles=0):
+        super().__init__(name, miles)   # Call to superclass __init__ method
+        self.seats = seats     # Set van-specific field 
 
 
 class Motorcycle(Vehicle):
-    pass
+    def __init__(self, name, has_sidecar, miles=0):
+        super().__init__(name, miles)   # Motorcycle-specific field 
+        self.has_sidecar = has_sidecar
+
 
 
 
