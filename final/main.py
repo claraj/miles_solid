@@ -4,7 +4,8 @@
 
 from view import * 
 
-from sql_database.database import VehicleDB     # Change this line to import the api DB instead 
+# from sql_database.database import VehicleDB     # Change this line to import the api DB instead 
+from api_database.database import VehicleDB     # Change this line to import the api DB instead 
 from view.view import View 
 from view_model import ViewModel
 from repository import Repository 
