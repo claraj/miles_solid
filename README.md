@@ -1,8 +1,8 @@
 # Miles Database 
 
-Original code in original 
+Original code in original directory
 
-Revisions in final
+Revisions in final directory
 
 Example API server in miles_api
 
