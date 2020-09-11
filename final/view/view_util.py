@@ -10,7 +10,7 @@ def input_positive_float(question):
                 print('Enter a positive number')
             else:
                 return number 
-        except ValueError as e:
+        except ValueError:
             print('Enter a number.')
 
 
@@ -20,5 +20,8 @@ def header(text):
 
 
 def show_vehicle_list(vehicles):
-    for index, vehicle in enumerate(vehicles):
-        print(f'{index + 1}. {vehicle}')
+
+    print(f'{"Name":<20}  {"Miles":<20}')
+    print('-' * 40)
+    for vehicle in vehicles:
+        print(f'{vehicle.name:<20}  {vehicle.miles:<20}')
