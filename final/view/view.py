@@ -16,16 +16,23 @@ class View:
         header('Insert new vehicles into the database')
 
         while True:
-            name = input('Enter new vehicle name to insert, or enter to quit: ')
-            if not name:
+            vehicle = self.get_one_new_vehicle()
+            if not vehicle:
                 break
 
-            miles = input_positive_float(f'Enter new miles driven for {name}: ')
-            vehicle = Vehicle(name, miles)
-            try:
-                self.view_model.insert(vehicle)
-            except MileageError as e:
-                print(str(e))
+
+    def get_one_new_vehicle(self):
+        name = input('Enter new vehicle name to insert, or enter to quit: ')
+        if not name:
+            return 
+
+        miles = input_positive_float(f'Enter new miles driven for {name}: ')
+        vehicle = Vehicle(name, miles)
+        try:
+            self.view_model.insert(vehicle)
+            return vehicle
+        except MileageError as e:
+            print(str(e))
 
 
     def update_existing_vehicles(self):
@@ -33,24 +40,31 @@ class View:
         header('Update miles for vehicles already in the database')
 
         while True:
-            name = input('Enter existing vehicle name or enter to stop updating vehicles: ')
-            if not name:
+            vehicle = self.update_one_vehicle()
+            if not vehicle:
                 break
 
-            miles = input_positive_float(f'Enter new miles driven for {name}: ')
-            
-            vehicle = Vehicle(name)
-            
-            # Can substitute a Van for a Vehicle - code all still works, 
-            # although DB would need to be updated to store the extra field. 
-            
-            # seats = int(input('Enter seats for van: '))
-            # vehicle = Van(name, seats)
-            
-            try:
-                self.view_model.increase_miles(vehicle, miles)
-            except MileageError as e:
-                print(str(e))
+
+    def update_one_vehicle(self):
+        name = input('Enter existing vehicle name or enter to stop updating vehicles: ')
+        if not name:
+            return
+
+        miles = input_positive_float(f'Enter new miles driven for {name}: ')
+        
+        vehicle = Vehicle(name, miles)
+        
+        # Can substitute a Van for a Vehicle - code all still works, 
+        # although DB would need to be updated to store the extra field. 
+        
+        # seats = int(input('Enter seats for van: '))
+        # vehicle = Van(name, seats)
+        
+        try:
+            self.view_model.increase_miles(vehicle, miles)
+            return vehicle
+        except MileageError as e:
+            print(str(e))
 
 
     def display_all_data(self):
@@ -59,5 +73,6 @@ class View:
 
         all_vehicles = self.view_model.get_all()
         show_vehicle_list(all_vehicles)
+
 
 
