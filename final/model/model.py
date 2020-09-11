@@ -16,6 +16,13 @@ class Vehicle():
         return f'Name: {self.name}, Miles: {self.miles}'
 
 
+    def __eq__(self, other):
+        return self.name == other.name and self.miles == other.miles
+
+
+    def __ne__(self, other):
+        return self.name != other.name or self.miles != other.miles
+
 
 # Can make Car and Van and Motorcycle subclasses and everything still works 
 
